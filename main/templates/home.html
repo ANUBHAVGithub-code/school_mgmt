@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fa;
+            color: #333;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background: #222;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        nav .nav-left a,
+        nav .nav-right a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav .nav-left a:hover,
+        nav .nav-right a:hover {
+            color: #00aaff;
+        }
+
+        .nav-right a {
+            margin-left: 10px;
+        }
+
+        /* Main content */
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            margin-bottom: 15px;
+            color: #222;
+        }
+
+        p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        /* Responsive for smaller screens */
+        @media (max-width: 600px) {
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav .nav-left a,
+            nav .nav-right a {
+                margin: 5px 0;
+            }
+
+            .container {
+                margin: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-left">
+        <a href="#">Profile</a>
+        <a href="#">User Type</a>
+        {% if "Teacher" in groups or "Principal" in groups %}
+            <a href="#">Users</a>
+            <a href="#">Report</a>
+        {% endif %}
+        {% if "Principal" in groups %}
+            <a href="#">Update</a>
+        {% endif %}
+    </div>
+    <div class="nav-right">
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+</nav>
+
+<div class="container">
+    <h1>Welcome, {{ request.user.username }}!</h1>
+    <p>Your role: {{ groups|join:", " }}</p>
+</div>
+
+{% if last_login %}
+    <p><strong>Last login:</strong> {{ last_login.login_time }}</p>
+{% else %}
+    <p>This is your first login!</p>
+{% endif %}
+
+
+</body>
+</html>
