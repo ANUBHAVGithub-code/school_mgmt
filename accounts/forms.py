@@ -14,3 +14,5 @@ class SignUpForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username','email','password']
+
+#never mind this just doing so to make changes in PR branch
