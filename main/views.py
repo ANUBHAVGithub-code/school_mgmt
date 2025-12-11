@@ -7,23 +7,27 @@ from .models import LoginRecord
 
 @login_required
 def home(request):
-    groups = request.user.groups.values_list('name', flat = True)
-    last_login_record = LoginRecord.objects.filter(user = request.user).order_by('-login_time').first()
-    return render(request, 'home.html',{"groups":list(groups),"last_login":last_login_record})
+    user_groups = request.user.groups.values_list('name', flat = True)
+    login_record = LoginRecord.objects.filter(user = request.user).order_by('-login_time')
+    last_login_record = login_record[1] if login_record.count() >1 else None
+    return render(request, 'home.html',{"groups":list(user_groups),"last_login":last_login_record})
 
 def signup_view(request):
     if request.method == 'POST':
         username = request.POST.get("username")
-        email = request.POST.get("email")
         password = request.POST.get("password")
-        group_name = request.POST.get("group")
+        group_name = request.POST.get("group")   # <-- FIXED
 
-        user = User.objects.create_user(username= username, email=email,password= password)
+        user = User.objects.create_user(username=username, password=password)
+
         if group_name:
-            group = Group.objects.get(name = group_name)
+            group, created = Group.objects.get_or_create(name=group_name)
             user.groups.add(group)
+
         return redirect('login')
-    return render(request,"sign_up.html")
+
+    return render(request, "sign_up.html")
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -45,6 +49,3 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect("login")
-
-
-
