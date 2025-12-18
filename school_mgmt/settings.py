@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main.apps.MainConfig',
+    'rest_framework',
     'accounts'
 ]
 
@@ -125,3 +126,10 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = '/login/'
+
+REST_FRAMEWORK= {
+    'DEFAULT_AUTHENTICATION_CLASSES':['rest_framework.authentication.SessionAuthentication',],
+    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated',],
+    'DEFAULT_PAGINATION_CLASSES':'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE':10,
+}
