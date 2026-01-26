@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block title %}My Assignments{% endblock %}
+
+{% block content %}
+
+<!-- existing assignment table / logic stays exactly the same -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Assignments</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fa;
+            padding: 30px;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            color: #111827;
+            margin-bottom: 30px;
+        }
+
+        .assignment-list {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .assignment-card {
+            background: #ffffff;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .assignment-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+        }
+
+        .assignment-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .assignment-title:hover {
+            text-decoration: underline;
+        }
+
+        .assignment-meta {
+            margin-top: 8px;
+            font-size: 14px;
+            color: #4b5563;
+        }
+
+        .status {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px 12px;
+            font-size: 13px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .status.pending {
+            background: #fff7ed;
+            color: #9a3412;
+        }
+
+        .status.submitted {
+            background: #ecfdf5;
+            color: #065f46;
+        }
+
+        .empty {
+            text-align: center;
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Your Assignments</h2>
+
+<div class="assignment-list">
+{% if assignments %}
+    {% for assignment in assignments %}
+        <div class="assignment-card">
+            <a class="assignment-title"
+               href="{% url 'student-assignment-detail' assignment.id %}">
+                {{ assignment.title }}
+            </a>
+
+            <div class="assignment-meta">
+                Due: {{ assignment.due_date }}
+            </div>
+
+            {% if assignment.id in submitted_assignments_ids %}
+                <div class="status submitted">
+                    Submitted ✅
+                </div>
+            {% else %}
+                <div class="status pending">
+                    Pending ⏳
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% else %}
+    <p class="empty">No assignments assigned to you.</p>
+{% endif %}
+</div>
+
+</body>
+</html>
+
+{% endblock %}

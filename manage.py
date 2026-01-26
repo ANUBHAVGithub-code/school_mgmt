@@ -20,3 +20,19 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+
+#Mental model (this will click 🔥)
+
+#In your project:
+
+# Models → what data exists
+
+# DRF Serializers → how data looks outside
+
+# DRF Views/ViewSets → who can access what
+
+# Permissions → rules you can’t bypass
+
+# Frontend/UI → just a client, not authority

@@ -2,9 +2,10 @@
 __pycache__/
 *.py[cod]
 
-# Env
+# Env and envirnoment variables
 venv/
 env/
+.env
 
 # Django stuff
 *.sqlite3
@@ -14,3 +15,13 @@ env/
 
 # Migrations
 */migrations/__pycache__/
+
+#os files
+.DS_Store
+thumbs.db
+
+# Mirgrations (ignore cache, keep migration files)
+*/migrations/__pycache__
+
+# Docker
+*.pid

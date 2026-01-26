@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% if assignment %}Edit Assignment{% else %}Create Assignment{% endif %}</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container my-5">
+    <h2 class="mb-4">{% if assignment %}Edit Assignment{% else %}Create Assignment{% endif %}</h2>
+
+    <!-- Messages -->
+    <div id="messages-container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <!-- Assignment Form -->
+    <div class="card shadow-sm p-4 bg-white rounded">
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="mb-3">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="text-danger small">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="btn btn-primary">
+                {% if assignment %}Update Assignment{% else %}Create Assignment{% endif %}
+            </button>
+            <a href="{% url 'assignment-list' %}" class="btn btn-secondary">Back to Assignments</a>
+        </form>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Auto fade for messages -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const alerts = document.querySelectorAll("#messages-container .alert");
+    alerts.forEach((alert) => {
+        setTimeout(() => {
+            alert.style.transition = "opacity 1s ease-out";
+            alert.style.opacity = "0";
+            setTimeout(() => alert.remove(), 1000);
+        }, 3000);
+    });
+});
+</script>
+
+</body>
+</html>

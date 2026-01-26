@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-9&nix*85xbkwqs9dkmn!93r*g6$e*h-o*bk3sconocnpuome!z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "0.0.0.0",
+]
 
 
 # Application definition
@@ -39,7 +43,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main.apps.MainConfig',
     'rest_framework',
-    'accounts'
+    'accounts',
+    'assignments',
+    'classes',
 ]
 
 MIDDLEWARE = [
@@ -133,3 +139,6 @@ REST_FRAMEWORK= {
     'DEFAULT_PAGINATION_CLASSES':'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE':10,
 }
+
+MEDIA_URL = '/media/'            # URL to access media files, file uploads will not work without this
+MEDIA_ROOT = BASE_DIR / 'media'  # Directory to store uploaded media files

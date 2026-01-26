@@ -1,6 +1,9 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
+#converts django models into JSON
+#validates incoming data
+#controls what fields are visible 
 
 class UserSerializer(serializers.ModelSerializer):
     role = serializers.SerializerMethodField()

@@ -126,16 +126,6 @@
             <button type="submit" class="btn btn-primary">Login</button>
             <a href="{% url 'signup' %}" class="btn btn-secondary">Sign Up</a>
         </form>
-
-        {% if messages %}
-            <div class="messages">
-                <ul>
-                    {% for message in messages %}
-                        <li>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-        {% endif %}
     </div>
 </body>
 </html>
