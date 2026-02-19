@@ -74,6 +74,27 @@
         .login-link a:hover {
             text-decoration: underline;
         }
+
+        .messages {
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        .messages .error {
+            color: #c00;
+            background: #fdd;
+            padding: 8px;
+            border-radius: 4px;
+            margin-bottom: 5px;
+        }
+
+        .messages .success {
+            color: #080;
+            background: #dfd;
+            padding: 8px;
+            border-radius: 4px;
+            margin-bottom: 5px;
+        }
     </style>
 
 </head>
@@ -82,6 +103,15 @@
     <div class="container">
         <h2>Create Account</h2>
 
+        <!-- Display Django messages -->
+        <div class="messages">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
         <form method="POST">
             {% csrf_token %}
             
@@ -89,16 +119,12 @@
             <input type="email" name="email" placeholder="Email" required>
             <input type="password" name="password" placeholder="Password" required>
 
-            <!-- IMPORTANT -->
-            <!-- name='group' because backend expects request.POST.get("group") -->
-
-        <select name="group" required>
+            <select name="group" required>
                <option value="" disabled selected>Select Role</option>
                <option value="Student">Student</option>
                <option value="Teacher">Teacher</option>
                <option value="Principal">Principal</option>
-        </select>
-
+            </select>
 
             <button type="submit">Sign Up</button>
         </form>

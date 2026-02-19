@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User, Group
 from .models import LoginRecord
 
 
@@ -30,22 +29,44 @@ def home(request):
 
     return render(request, "home.html", context)
 
-
-def signup_view(request):
-    if request.method == 'POST':
-        username = request.POST.get("username")
-        password = request.POST.get("password")
-        group_name = request.POST.get("group")
-
-        user = User.objects.create_user(username=username, password=password)
-
-        if group_name:
-            group, _ = Group.objects.get_or_create(name=group_name)
-            user.groups.add(group)
-
-        return redirect('login')
-
-    return render(request, "sign_up.html")
+# def signup_view(request):
+#     if request.method == "POST":
+#         username = request.POST.get("username", "").strip()
+#         email = request.POST.get("email", "").strip()
+#         password = request.POST.get("password", "")
+#         group_name = request.POST.get("group", "")
+#
+#         # Check if username exists first (case-sensitive)
+#         if User.objects.filter(username=username).exists():
+#             messages.error(request, f"Username '{username}' is already taken!")
+#             return render(request, "sign_up.html", {
+#                 "username": username,
+#                 "email": email,
+#                 "group": group_name
+#             })
+#
+#         try:
+#             user = User.objects.create_user(username=username, password=password, email=email)
+#
+#             # Assign group if selected
+#             if group_name:
+#                 group, created = Group.objects.get_or_create(name=group_name)
+#                 user.groups.add(group)
+#
+#             messages.success(request, "Signup successful! Please login.")
+#             return redirect("login")
+#
+#         except IntegrityError:
+#             # Catch any duplicates that slipped through
+#             messages.error(request, f"Username '{username}' is already taken!")
+#             return render(request, "sign_up.html", {
+#                 "username": username,
+#                 "email": email,
+#                 "group": group_name
+#             })
+#
+#     # GET request
+#     return render(request, "sign_up.html")
 
 
 def login_view(request):
@@ -56,6 +77,11 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
+
+            # Clear any stale messages
+            storage = messages.get_messages(request)
+            for _ in storage:
+                pass
 
             # Save login timestamp
             LoginRecord.objects.create(user=user)
