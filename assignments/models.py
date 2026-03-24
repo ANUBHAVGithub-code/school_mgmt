@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from classes.models import Class, Section
 from django.conf import settings #this was added when we are working with custom user model for assignment submission
+from django.utils.translation import gettext as _
 
 class Assignment(models.Model):
     title = models.CharField(max_length=250)
@@ -55,4 +56,7 @@ class AssignmentSubmission(models.Model):
         unique_together = ('assignment', 'student')
     
     def __str__(self):
-        return f"Submission of {self.assignment.title} by {self.student.username}"
+        return _("Submission of %(assignment)s by %(student)s") % {
+            "assignment": self.assignment.title,
+            "student": self.student.username,
+        }

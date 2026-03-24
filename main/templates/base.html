@@ -1,8 +1,12 @@
+{% load i18n %}
+{% load static %}
+{% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}School Management{% endblock %}</title>
+<link rel="stylesheet" href="{% static 'css/fonts.css' %}">
+    <title>{% block title %}{% trans "School Management" %}{% endblock %}</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -11,7 +15,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            font-family: var(--app-font);
         }
 
         body {
@@ -66,6 +70,20 @@
 
         nav a:hover::after {
             width: 100%;
+        }
+
+        /* LANGUAGE SWITCHER */
+        .lang-form {
+            margin-right: 14px;
+        }
+
+        .lang-form select {
+            background: #111827;
+            color: #e5e7eb;
+            border: 1px solid #374151;
+            padding: 6px 10px;
+            border-radius: 10px;
+            font-size: 13px;
         }
 
         /* LOGOUT BUTTON */
@@ -136,16 +154,35 @@
 
 <nav>
     <div class="nav-left">
-        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'home' %}">{% trans "Home" %}</a>
+
+        {% if is_student %}
+            <a href="{% url 'student-assignment-list' %}">{% trans "Assignments" %}</a>
+        {% else %}
+            <a href="{% url 'assignment-list' %}">{% trans "Assignments" %}</a>
+        {% endif %}
 
         {% if is_teacher or is_principal %}
-            <a href="#">Users</a>
-            <a href="#">Reports</a>
+            <a href="#">{% trans "Users" %}</a>
+            <a href="#">{% trans "Reports" %}</a>
         {% endif %}
     </div>
 
     <div class="nav-right">
-        <a href="{% url 'logout' %}" class="logout">Logout</a>
+        <form class="lang-form" action="{% url 'set_language' %}" method="post">
+            {% csrf_token %}
+            {% get_current_language as LANGUAGE_CODE %}
+            {% get_available_languages as LANGUAGES %}
+            <select name="language" onchange="this.form.submit()">
+                {% for code, name in LANGUAGES %}
+                    <option value="{{ code }}"{% if code == LANGUAGE_CODE %} selected{% endif %}>
+                        {{ name }}
+                    </option>
+                {% endfor %}
+            </select>
+            <input type="hidden" name="next" value="{{ request.get_full_path }}">
+        </form>
+        <a href="{% url 'logout' %}" class="logout">{% trans "Logout" %}</a>
     </div>
 </nav>
 

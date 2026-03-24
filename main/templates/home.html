@@ -1,146 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+{% extends "base.html" %}
+{% load i18n %}
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
+{% block title %}{% trans "Home" %}{% endblock %}
 
-        body {
-            background: #f4f7fa;
-            color: #333;
-        }
+{% block extra_css %}
+<style>
+    .role-badge {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 6px 12px;
+        background: #e0f2fe;
+        color: #0369a1;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: bold;
+    }
 
-        nav {
-            background: #1f2937;
-            padding: 14px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-        }
+    .login-info {
+        text-align: center;
+        margin-top: 20px;
+        color: #6b7280;
+        font-size: 14px;
+    }
+</style>
+{% endblock %}
 
-        .nav-left,
-        .nav-right {
-            display: flex;
-            align-items: center;
-        }
+{% block content %}
+    <h1>{% trans "Welcome!" %}, {{ request.user.username }}</h1>
+    <p>{% trans "Your role(s):" %}</p>
 
-        nav a {
-            color: #e5e7eb;
-            text-decoration: none;
-            margin-right: 18px;
-            font-weight: 600;
-            transition: color 0.3s, transform 0.2s;
-        }
-
-        nav a:hover {
-            color: #38bdf8;
-            transform: translateY(-1px);
-        }
-
-        .nav-right a {
-            margin-right: 0;
-            background: #ef4444;
-            padding: 6px 12px;
-            border-radius: 6px;
-            color: white;
-        }
-
-        .nav-right a:hover {
-            background: #dc2626;
-            color: white;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 30px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-
-        h1 {
-            margin-bottom: 10px;
-            color: #111827;
-        }
-
-        p {
-            font-size: 16px;
-            color: #4b5563;
-            margin-bottom: 8px;
-        }
-
-        .role-badge {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 6px 12px;
-            background: #e0f2fe;
-            color: #0369a1;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        .login-info {
-            text-align: center;
-            margin-top: 20px;
-            color: #6b7280;
-            font-size: 14px;
-        }
-    </style>
-</head>
-<body>
-
-<nav>
-    <div class="nav-left">
-        <a href="#">Profile</a>
-
-        {% if 'Student' in groups %}
-            <a href="{% url 'student-assignment-list' %}">Assignments</a>
-        {% else %}
-            <a href="{% url 'assignment-list' %}">Assignments</a>
-        {% endif %}
-
-        {% if is_teacher or is_principal %}
-            <a href="#">Users</a>
-            <a href="#">Report</a>
-        {% endif %}
-
-        {% if is_principal %}
-            <a href="#">Update</a>
-        {% endif %}
-    </div>
-
-    <div class="nav-right">
-        <a href="{% url 'logout' %}">Logout</a>
-    </div>
-</nav>
-
-<div class="container">
-    <h1>Welcome!, {{ request.user.username }} 👋</h1>
-    <p>Your role(s):</p>
     <div class="role-badge">
         {{ groups|join:", " }}
     </div>
-</div>
 
-<div class="login-info">
-    {% if last_login %}
-        <p><strong>Last login:</strong> {{ last_login.login_time }}</p>
-    {% else %}
-        <p>This is your first login!</p>
-    {% endif %}
-</div>
-
-</body>
-</html>
-
+    <div class="login-info">
+        {% if last_login %}
+            <p><strong>{% trans "Last login:" %}</strong> {{ last_login.login_time }}</p>
+        {% else %}
+            <p>{% trans "This is your first login!" %}</p>
+        {% endif %}
+    </div>
+{% endblock %}

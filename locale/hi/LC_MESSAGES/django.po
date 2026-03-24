@@ -1,0 +1,194 @@
+# Hindi translations for School Management Project
+
+msgid ""
+msgstr ""
+"Project-Id-Version: SCHOOL-MGMT\n"
+"Language: hi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Roles & Auth
+msgid "Student"
+msgstr "छात्र"
+
+msgid "Teacher"
+msgstr "शिक्षक"
+
+msgid "Principal"
+msgstr "प्रधानाचार्य"
+
+msgid "Password"
+msgstr "पासवर्ड"
+
+msgid "Role"
+msgstr "भूमिका"
+
+msgid "Login"
+msgstr "लॉगिन"
+
+msgid "Sign Up"
+msgstr "पंजीकरण"
+
+msgid "Username"
+msgstr "यूज़रनेम"
+
+msgid "Email"
+msgstr "ईमेल"
+
+# Messages
+msgid "Signup successful! Please login."
+msgstr "पंजीकरण सफल हुआ! कृपया लॉगिन करें।"
+
+msgid "Invalid username or password"
+msgstr "अमान्य यूज़रनेम या पासवर्ड"
+
+msgid "Username '%(username)s' is already taken!"
+msgstr "यूज़रनेम '%(username)s' पहले से लिया जा चुका है!"
+
+# Validation
+msgid "Title is required."
+msgstr "शीर्षक आवश्यक है।"
+
+msgid "Title must be at least 5 characters long."
+msgstr "शीर्षक कम से कम 5 अक्षरों का होना चाहिए।"
+
+msgid "Description is required."
+msgstr "विवरण आवश्यक है।"
+
+msgid "Description must be at least 10 characters long."
+msgstr "विवरण कम से कम 10 अक्षरों का होना चाहिए।"
+
+msgid "Due date cannot be in the past."
+msgstr "अंतिम तिथि भूतकाल में नहीं हो सकती।"
+
+# Assignment UI
+msgid "Assignments"
+msgstr "असाइनमेंट्स"
+
+msgid "Create Assignment"
+msgstr "असाइनमेंट बनाएं"
+
+msgid "Edit Assignment"
+msgstr "असाइनमेंट संपादित करें"
+
+msgid "Delete Assignment"
+msgstr "असाइनमेंट हटाएं"
+
+msgid "Update Assignment"
+msgstr "असाइनमेंट अपडेट करें"
+
+msgid "Back to Assignments"
+msgstr "असाइनमेंट्स पर वापस जाएं"
+
+msgid "No assignments found."
+msgstr "कोई असाइनमेंट नहीं मिला।"
+
+# Fields
+msgid "Title"
+msgstr "शीर्षक"
+
+msgid "Subject"
+msgstr "विषय"
+
+msgid "Class"
+msgstr "कक्षा"
+
+msgid "Section"
+msgstr "सेक्शन"
+
+msgid "Due Date"
+msgstr "अंतिम तिथि"
+
+msgid "Actions"
+msgstr "क्रियाएँ"
+
+# Buttons
+msgid "Edit"
+msgstr "संपादित करें"
+
+msgid "Delete"
+msgstr "हटाएं"
+
+msgid "Cancel"
+msgstr "रद्द करें"
+
+msgid "Close"
+msgstr "बंद करें"
+
+msgid "Download"
+msgstr "डाउनलोड"
+
+msgid "Upload file"
+msgstr "फ़ाइल अपलोड करें"
+
+# Submission
+msgid "Submitted"
+msgstr "जमा किया गया"
+
+msgid "Pending"
+msgstr "लंबित"
+
+msgid "Submission"
+msgstr "जमा"
+
+msgid "Submitted At"
+msgstr "जमा करने का समय"
+
+msgid "Download File"
+msgstr "फ़ाइल डाउनलोड करें"
+
+# Home / Navbar
+msgid "School Management"
+msgstr "स्कूल प्रबंधन"
+
+msgid "Home"
+msgstr "होम"
+
+msgid "Users"
+msgstr "उपयोगकर्ता"
+
+msgid "Reports"
+msgstr "रिपोर्ट्स"
+
+msgid "Logout"
+msgstr "लॉगआउट"
+
+msgid "Welcome!"
+msgstr "स्वागत है!"
+
+msgid "Your role(s):"
+msgstr "आपकी भूमिका(एं):"
+
+msgid "Last login:"
+msgstr "पिछला लॉगिन:"
+
+msgid "This is your first login!"
+msgstr "यह आपका पहला लॉगिन है!"
+
+# Login Page
+msgid "Username:"
+msgstr "यूज़रनेम:"
+
+msgid "Enter your username"
+msgstr "अपना यूज़रनेम दर्ज करें"
+
+msgid "Password:"
+msgstr "पासवर्ड:"
+
+msgid "Enter your password"
+msgstr "अपना पासवर्ड दर्ज करें"
+
+# Signup Page
+msgid "Create Account"
+msgstr "खाता बनाएं"
+
+msgid "Select Role"
+msgstr "भूमिका चुनें"
+
+msgid "Already have an account?"
+msgstr "क्या आपके पास पहले से खाता है?"
+
+msgid "Login here"
+msgstr "यहाँ लॉगिन करें"
+

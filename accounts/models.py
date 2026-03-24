@@ -3,11 +3,12 @@ from django.db import models
 # Create your models here.
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 
 ROLE_CHOICES = (
-    ("Principal", "Principal"),
-    ("Teacher", "Teacher"),
-    ("Student", "Student"),
+    ("Principal", _("Principal")),
+    ("Teacher", _("Teacher")),
+    ("Student", _("Student")),
 )
 
 class UserProfile(models.Model):

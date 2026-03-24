@@ -1,6 +1,7 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}Assignments{% endblock %}
+{% block title %}{% trans "Assignments" %}{% endblock %}
 
 {% block extra_css %}
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -31,12 +32,12 @@
 
 {% block content %}
 
-<h2 class="mb-4">Assignments</h2>
+<h2 class="mb-4">{% trans "Assignments" %}</h2>
 
 <!-- Create button for teachers -->
 {% if request.user.groups.all.0.name == 'Teacher' %}
     <a href="{% url 'assignment-create' %}" class="btn btn-primary mb-3">
-        + Create Assignment
+        + {% trans "Create Assignment" %}
     </a>
 {% endif %}
 
@@ -71,13 +72,13 @@
         <table class="table table-striped table-hover bg-white shadow-sm rounded">
             <thead class="table-dark">
                 <tr>
-                    <th>Title</th>
-                    <th>Subject</th>
-                    <th>Class</th>
-                    <th>Section</th>
-                    <th>Due Date</th>
-                    <th>Teacher</th>
-                    <th>Actions</th>
+                    <th>{% trans "Title" %}</th>
+                    <th>{% trans "Subject" %}</th>
+                    <th>{% trans "Class" %}</th>
+                    <th>{% trans "Section" %}</th>
+                    <th>{% trans "Due Date" %}</th>
+                    <th>{% trans "Teacher" %}</th>
+                    <th>{% trans "Actions" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -93,17 +94,17 @@
                             {% if request.user == assignment.teacher %}
                                 <a href="{% url 'assignment-edit' assignment.pk %}"
                                    class="btn btn-sm btn-warning mb-1">
-                                    Edit
+                                    {% trans "Edit" %}
                                 </a>
 
                                 <a href="{% url 'assignment-delete' assignment.pk %}"
                                    class="btn btn-sm btn-danger mb-1">
-                                    Delete
+                                    {% trans "Delete" %}
                                 </a>
 
                                 <a href="{% url 'teacher-assignment-submissions-view' assignment.pk %}"
                                    class="btn btn-sm btn-success mb-1">
-                                    View Submissions
+                                    {% trans "View Submissions" %}
                                 </a>
                             {% endif %}
                         </td>
@@ -113,7 +114,7 @@
         </table>
     </div>
 {% else %}
-    <div class="alert alert-info">No assignments found.</div>
+    <div class="alert alert-info">{% trans "No assignments found." %}</div>
 {% endif %}
 
 {% endblock %}

@@ -7,6 +7,7 @@ from .models import Assignment, AssignmentSubmission
 from django.contrib import messages
 from classes.models import StudentProfile
 from django.core.cache import cache
+from django.utils.translation import gettext as _
 
 
 @login_required
@@ -58,7 +59,7 @@ def assignment_create_view(request):
     user = request.user
 
     if not user.groups.filter(name='Teacher').exists():
-        return HttpResponseForbidden("You do not have permission to create assignments.")
+        return HttpResponseForbidden(_("You do not have permission to create assignments."))
 
     if request.method == 'POST':
         form = AssignmentForm(request.POST)
@@ -69,7 +70,7 @@ def assignment_create_view(request):
 
             cache.delete(f"assignment_list:teacher:{user.id}")
 
-            messages.success(request, "Assignment created successfully.")
+            messages.success(request, _("Assignment created successfully."))
             return redirect('assignment-list')
     else:
         form = AssignmentForm()
@@ -83,10 +84,10 @@ def assignment_edit_view(request,pk):
     assignment = Assignment.objects.get(pk=pk)
 
     if not user.groups.filter(name='Teacher').exists():
-        return HttpResponseForbidden("You do not have permission to edit assignments.")
+        return HttpResponseForbidden(_("You do not have permission to edit assignments."))
     
     if assignment.teacher != user:
-        return HttpResponseForbidden("You can only edit your own assignments.")
+        return HttpResponseForbidden(_("You can only edit your own assignments."))
     
     if request.method == 'POST':
         form = AssignmentForm(request.POST, instance=assignment)
@@ -96,7 +97,7 @@ def assignment_edit_view(request,pk):
             cache.delete(f"assignment_list:teacher:{user.id}")
             cache.delete(f"teacher_submissions:{assignment.id}")
 
-            messages.success(request, "Assignment updated successfully.")
+            messages.success(request, _("Assignment updated successfully."))
             return redirect("assignment-list")
     else:
         form = AssignmentForm(instance=assignment)
@@ -110,10 +111,10 @@ def assignment_delete_view(request,pk):
     assignment = Assignment.objects.get(pk=pk)
 
     if not user.groups.filter(name = 'Teacher').exists():
-        return HttpResponseForbidden("You do not have permission to delete assignments.")
+        return HttpResponseForbidden(_("You do not have permission to delete assignments."))
     
     if assignment.teacher != user:
-        return HttpResponseForbidden("You can only delete your own assignments.")
+        return HttpResponseForbidden(_("You can only delete your own assignments."))
     
     if request.method == 'POST':
         assignment.is_active = False
@@ -122,7 +123,7 @@ def assignment_delete_view(request,pk):
         cache.delete(f"assignment_list:teacher:{user.id}")
         cache.delete(f"teacher_submissions:{assignment.id}")
 
-        messages.success(request, "Assignment deleted successfully.")
+        messages.success(request, _("Assignment deleted successfully."))
         return redirect('assignment-list')  
     
     return render(request, 'assignments/assignment_confirm_delete.html', {'assignment': assignment})
@@ -133,7 +134,7 @@ def teacher_Assignment_submissions_view(request, pk):
     user = request.user
 
     if not user.groups.filter(name='Teacher').exists():
-        return HttpResponseForbidden("You do not have permission to view submissions.")
+        return HttpResponseForbidden(_("You do not have permission to view submissions."))
 
     cache_key = f"teacher_submissions:{pk}"
     cached_data = cache.get(cache_key)
@@ -240,7 +241,7 @@ def student_assignment_detail(request, pk):
             cache.delete(f"student_assignment_list:{request.user.id}")
             cache.delete(f"teacher_submissions:{assignment.id}")
 
-            messages.success(request, "Submission updated successfully.")
+            messages.success(request, _("Submission updated successfully."))
             return redirect(request.path)
 
     return render(request, "assignments/student_assignment_detail.html", {

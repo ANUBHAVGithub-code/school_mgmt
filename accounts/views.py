@@ -3,6 +3,7 @@ from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.db import IntegrityError
+from django.utils.translation import gettext as _
 
 def signup_view(request):
     if request.method == "POST":
@@ -13,7 +14,7 @@ def signup_view(request):
 
         # Check if username exists first (case-sensitive)
         if User.objects.filter(username=username).exists():
-            messages.error(request, f"Username '{username}' is already taken!")
+            messages.error(request, _("Username '%(username)s' is already taken!") % {"username": username})
             return render(request, "sign_up.html", {
                 "username": username,
                 "email": email,
@@ -28,12 +29,12 @@ def signup_view(request):
                 group, created = Group.objects.get_or_create(name=group_name)
                 user.groups.add(group)
 
-            messages.success(request, "Signup successful! Please login.")
+            messages.success(request, _("Signup successful! Please login."))
             return redirect("login")
 
         except IntegrityError:
             # Catch any duplicates that slipped through
-            messages.error(request, f"Username '{username}' is already taken!")
+            messages.error(request, _("Username '%(username)s' is already taken!") % {"username": username})
             return render(request, "sign_up.html", {
                 "username": username,
                 "email": email,

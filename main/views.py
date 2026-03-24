@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from .models import LoginRecord
+from django.utils.translation import gettext as _
 
 
 @login_required
@@ -88,7 +89,7 @@ def login_view(request):
 
             return redirect("home")
         else:
-            messages.error(request, "Invalid username or password")
+            messages.error(request, _("Invalid username or password"))
 
     return render(request, "log_in.html")
 

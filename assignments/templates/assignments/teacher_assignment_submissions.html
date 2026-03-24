@@ -1,14 +1,15 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% load template_extras %}
 
-{% block title %}Assignment Submissions{% endblock %}
+{% block title %}{% trans "Assignment Submissions" %}{% endblock %}
 
 {% block content %}
 
 <!-- PAGE HEADER -->
 <div class="d-flex justify-content-between align-items-start mb-5">
     <div>
-        <h1 class="fw-bold mb-2">Assignment Submissions</h1>
+        <h1 class="fw-bold mb-2">{% trans "Assignment Submissions" %}</h1>
         <p class="text-muted fs-5 mb-0">
             {{ assignment.title }}
         </p>
@@ -16,7 +17,7 @@
 
     <a href="{% url 'assignment-list' %}"
        class="btn btn-lg btn-outline-dark px-4 rounded-pill shadow-sm">
-        ← Back to Assignments
+        &larr; {% trans "Back to Assignments" %}
     </a>
 </div>
 
@@ -29,10 +30,10 @@
             <table class="table align-middle mb-0">
                 <thead class="bg-dark text-white">
                     <tr>
-                        <th class="ps-5 py-4">Student</th>
-                        <th class="py-4">Status</th>
-                        <th class="py-4">Submission</th>
-                        <th class="pe-5 py-4">Submitted At</th>
+                        <th class="ps-5 py-4">{% trans "Student" %}</th>
+                        <th class="py-4">{% trans "Status" %}</th>
+                        <th class="py-4">{% trans "Submission" %}</th>
+                        <th class="pe-5 py-4">{% trans "Submitted At" %}</th>
                     </tr>
                 </thead>
 
@@ -50,7 +51,7 @@
                                 <!-- STATUS -->
                                 <td class="py-4">
                                     <span class="badge bg-success bg-opacity-10 text-success fs-6 px-4 py-2 rounded-pill">
-                                        ✔ Submitted
+                                        {% trans "Submitted" %}
                                     </span>
                                 </td>
 
@@ -60,33 +61,33 @@
                                         <a href="{{ submission.file.url }}"
                                            target="_blank"
                                            class="btn btn-outline-primary btn-lg rounded-pill px-4">
-                                            Download File
+                                            {% trans "Download File" %}
                                         </a>
                                     {% else %}
-                                        <span class="text-muted">—</span>
+                                        <span class="text-muted">-</span>
                                     {% endif %}
                                 </td>
 
                                 <!-- TIME -->
                                 <td class="pe-5 py-4 text-muted fs-6">
-                                    {{ submission.submitted_at|date:"d M Y · h:i A" }}
+                                    {{ submission.submitted_at|date:"DATETIME_FORMAT" }}
                                 </td>
                             {% else %}
                                 <!-- PENDING -->
                                 <td class="py-4">
                                     <span class="badge bg-danger bg-opacity-10 text-danger fs-6 px-4 py-2 rounded-pill">
-                                        ⏳ Pending
+                                        {% trans "Pending" %}
                                     </span>
                                 </td>
-                                <td class="py-4 text-muted">—</td>
-                                <td class="pe-5 py-4 text-muted">—</td>
+                                <td class="py-4 text-muted">-</td>
+                                <td class="pe-5 py-4 text-muted">-</td>
                             {% endif %}
                         </tr>
                         {% endwith %}
                     {% empty %}
                         <tr>
                             <td colspan="4" class="text-center text-muted py-5 fs-5">
-                                No students found for this assignment.
+                                {% trans "No students found for this assignment." %}
                             </td>
                         </tr>
                     {% endfor %}

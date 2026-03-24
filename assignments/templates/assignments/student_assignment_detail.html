@@ -1,12 +1,16 @@
+{% load i18n %}
+{% load static %}
+{% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
     <meta charset="UTF-8">
+<link rel="stylesheet" href="{% static 'css/fonts.css' %}">
     <title>{{ assignment.title }}</title>
 
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: var(--app-font);
             background: #f4f7fa;
             padding: 40px;
             color: #333;
@@ -158,9 +162,9 @@
     <h2>{{ assignment.title }}</h2>
 
     <div class="meta">
-        <strong>Subject:</strong> {{ assignment.subject }}<br>
-        <strong>Due Date:</strong> {{ assignment.due_date }}<br>
-        <strong>Assigned By:</strong> {{ assignment.teacher.username }}
+        <strong>{% trans "Subject:" %}</strong> {{ assignment.subject }}<br>
+        <strong>{% trans "Due Date:" %}</strong> {{ assignment.due_date }}<br>
+        <strong>{% trans "Assigned By:" %}</strong> {{ assignment.teacher.username }}
     </div>
 
     <hr>
@@ -171,33 +175,33 @@
 
     <hr>
 
-    <div class="section-title">Edit Your Submission</div>
+    <div class="section-title">{% trans "Edit Your Submission" %}</div>
 
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
         {% if submission and submission.file %}
             <div class="file-box">
-                <strong>Current file:</strong>
-                <a href="{{ submission.file.url }}" target="_blank">Download</a>
+                <strong>{% trans "Current file:" %}</strong>
+                <a href="{{ submission.file.url }}" target="_blank">{% trans "Download" %}</a>
 
                 <div class="remove-box">
                     <label>
                         <input type="checkbox" id="removeCheckbox" name="remove_file">
-                        Remove existing file
+                        {% trans "Remove existing file" %}
                     </label>
                 </div>
             </div>
         {% endif %}
 
-        <label>Upload file</label>
+        <label>{% trans "Upload file" %}</label>
         {{ form.file }}
 
-        <button type="submit">Update Submission</button>
+        <button type="submit">{% trans "Update Submission" %}</button>
     </form>
 
     <a class="back-link" href="{% url 'student-assignment-list' %}">
-        ← Back to Assignments
+        &larr; {% trans "Back to Assignments" %}
     </a>
 
 </div>
@@ -205,12 +209,12 @@
 <!-- CUSTOM MODAL -->
 <div class="modal-overlay" id="confirmModal">
     <div class="modal">
-        <h3>Remove File?</h3>
-        <p>This will permanently delete your existing submission.</p>
+        <h3>{% trans "Remove File?" %}</h3>
+        <p>{% trans "This will permanently delete your existing submission." %}</p>
 
         <div class="modal-buttons">
-            <button class="btn-secondary" type="button" onclick="cancelRemove()">Cancel</button>
-            <button class="btn-danger" type="button" onclick="confirmRemove()">Remove</button>
+            <button class="btn-secondary" type="button" onclick="cancelRemove()">{% trans "Cancel" %}</button>
+            <button class="btn-danger" type="button" onclick="confirmRemove()">{% trans "Remove" %}</button>
         </div>
     </div>
 </div>

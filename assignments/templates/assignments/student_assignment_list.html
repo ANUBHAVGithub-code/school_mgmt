@@ -1,19 +1,22 @@
 {% extends "base.html" %}
+{% load i18n %}
+{% load static %}
 
-{% block title %}My Assignments{% endblock %}
+{% block title %}{% trans "My Assignments" %}{% endblock %}
 
 {% block content %}
 
-<!-- existing assignment table / logic stays exactly the same -->
 <!DOCTYPE html>
-<html lang="en">
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
     <meta charset="UTF-8">
-    <title>Your Assignments</title>
+<link rel="stylesheet" href="{% static 'css/fonts.css' %}">
+    <title>{% trans "Your Assignments" %}</title>
 
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: var(--app-font);
             background: #f4f7fa;
             padding: 30px;
             color: #333;
@@ -88,7 +91,7 @@
 </head>
 <body>
 
-<h2>Your Assignments</h2>
+<h2>{% trans "Your Assignments" %}</h2>
 
 <div class="assignment-list">
 {% if assignments %}
@@ -100,22 +103,22 @@
             </a>
 
             <div class="assignment-meta">
-                Due: {{ assignment.due_date }}
+                {% trans "Due:" %} {{ assignment.due_date }}
             </div>
 
             {% if assignment.id in submitted_assignments_ids %}
                 <div class="status submitted">
-                    Submitted ✅
+                    {% trans "Submitted" %}
                 </div>
             {% else %}
                 <div class="status pending">
-                    Pending ⏳
+                    {% trans "Pending" %}
                 </div>
             {% endif %}
         </div>
     {% endfor %}
 {% else %}
-    <p class="empty">No assignments assigned to you.</p>
+    <p class="empty">{% trans "No assignments assigned to you." %}</p>
 {% endif %}
 </div>
 

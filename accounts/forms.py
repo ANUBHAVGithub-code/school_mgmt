@@ -1,15 +1,16 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 
 ROLE_CHOICES  = [
-    ('student','Student'),
-    ('teacher','Teacher'),
-    ('principal','Principal')
+    ('student', _("Student")),
+    ('teacher', _("Teacher")),
+    ('principal', _("Principal"))
 ]
 
 class SignUpForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput)
-    role = forms.ChoiceField(choices=ROLE_CHOICES)
+    password = forms.CharField(widget=forms.PasswordInput, label=_("Password"))
+    role = forms.ChoiceField(choices=ROLE_CHOICES, label=_("Role"))
 
     class Meta:
         model = User

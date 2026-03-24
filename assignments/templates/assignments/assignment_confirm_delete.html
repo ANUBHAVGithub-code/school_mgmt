@@ -1,8 +1,12 @@
+{% load i18n %}
+{% load static %}
+{% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
     <meta charset="UTF-8">
-    <title>Delete Assignment</title>
+<link rel="stylesheet" href="{% static 'css/fonts.css' %}">
+    <title>{% trans "Delete Assignment" %}</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -10,14 +14,18 @@
 
 <div class="container my-5">
     <div class="card shadow-sm p-4 bg-white rounded">
-        <h3 class="mb-4 text-danger">Delete Assignment</h3>
+        <h3 class="mb-4 text-danger">{% trans "Delete Assignment" %}</h3>
 
-        <p>Are you sure you want to delete <strong>"{{ assignment.title }}"</strong>?</p>
+        <p>
+            {% blocktrans with title=assignment.title %}
+                Are you sure you want to delete "{{ title }}"?
+            {% endblocktrans %}
+        </p>
 
         <form method="post" class="d-inline">
             {% csrf_token %}
-            <button type="submit" class="btn btn-danger">Yes, Delete</button>
-            <a href="{% url 'assignment-list' %}" class="btn btn-secondary">Cancel</a>
+            <button type="submit" class="btn btn-danger">{% trans "Yes, Delete" %}</button>
+            <a href="{% url 'assignment-list' %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
         </form>
     </div>
 </div>
